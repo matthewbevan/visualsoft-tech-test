@@ -1,0 +1,224 @@
+{% if section.settings.background_image != blank %}
+  {% assign media_width_desktop = 100 | divided_by: 2 | append: 'vw' %}
+  {% assign media_width_mobile = '100vw' %}
+  {% assign sizes = '(min-width: 750px) ' | append: media_width_desktop | append: ', ' | append: media_width_mobile %}
+  {% assign widths = '300, 450, 600, 750, 900, 1050, 1200, 1350, 1500, 1650, 1800, 1950, 2000, 2500, 3000, 3500, 4000, 5000' %}
+  
+  {{
+    section.settings.background_image | image_url: width: 3840 | image_tag:
+    width: section.settings.background_image.width,
+    widths: widths,
+    height: section.settings.background_image.height,
+    alt: section.settings.background_image.alt,
+    class: 'sale-banner-background',
+    sizes: sizes
+  }}
+{% endif %}
+
+<div class="sale-banner-wrapper">
+  <div class="sale-banner-content">
+    {{ section.settings.sale_banner_content }}
+    {% if section.settings.button_url != blank and section.settings.button_text != blank %}
+    <a href="{{ section.settings.button_url }}" class="btn {{ section.settings.button_style }}">
+      {{ section.settings.button_text }}
+    </a>
+  {% endif %}
+  </div>
+
+  {% if section.settings.countdown_end_time != blank %}
+    {% assign countdown_end_time = section.settings.countdown_end_time %}
+    
+    {% capture formatted_countdown_end_time %}
+      {% assign date_parts = countdown_end_time | split: " " %}
+      {% assign day_month_year = date_parts[0] | split: "/" %}
+      {% assign time_parts = date_parts[1] | split: ":" %}
+      {% assign formatted_date = day_month_year[2] | append: "-" | append: day_month_year[1] | append: "-" | append: day_month_year[0] %}
+      {% assign formatted_time = time_parts[0] | append: ":" | append: time_parts[1] | append: ":" | append: time_parts[2] %}
+      {{ formatted_date }}T{{ formatted_time }}
+    {% endcapture %}
+    
+    {% assign formatted_countdown_end_time = formatted_countdown_end_time | strip %}
+    
+    <countdown-timer 
+      data-end-time="{{ formatted_countdown_end_time }}"
+      data-hide-ended-time="{{ section.settings.hide_ended_time }}" 
+      data-ended-message="{{ section.settings.ended_message }}">
+      <div class="countdown-timer">
+        <p class="countdown-text">
+          <span class="icon">{% render 'icon-calendar' %}</span>
+          <span class="countdown-clock"></span>
+        </p>
+        <p class="countdown-ended-message" style="display:none;">
+          <span class="icon">{% render 'icon-calendar' %}</span>
+          {{ section.settings.ended_message }}
+        </p>
+      </div>
+    </countdown-timer>
+  {% endif %}
+</div>
+
+{% if section.settings.countdown_end_time != blank %}
+  <script src="{{ 'countdown-timer.js' | asset_url }}" defer></script>
+{% endif %}
+
+<link href="{{ 'sale-banner.css' | asset_url }}" rel="stylesheet" type="text/css">
+
+{% assign font = section.settings.font_family %}
+{% assign font_family = font.family %}
+{% assign font_fallback = font.fallback_families %}
+
+{% style %}
+  .sale-banner-countdown {
+    background-color: {{ section.settings.background_colour }};
+    color: {{ section.settings.text_colour }};
+    font-family: {{ font_family }}, {{ font_fallback }};
+  }
+
+  .sale-banner-background {
+    filter: blur({{ section.settings.image_blur }}px);
+  }
+
+  .sale-banner-content {
+    font-size: {{ section.settings.font_size }}px;
+    line-height: {{ section.settings.font_size }}px;
+  }
+
+  .countdown-timer {
+    font-size: {{ section.settings.timer_font_size }}px;
+    line-height: {{ section.settings.font_size }}px;
+  }
+
+  .btn {
+    color: {{ section.settings.text_colour }};
+  }
+{% endstyle %}
+
+{% schema %}
+  {
+    "name": "Sale Banner Countdown",
+    "class": "sale-banner-countdown",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section Settings"
+      },
+      {
+        "type": "color",
+        "id": "background_colour",
+        "label": "Background Colour",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "text_colour",
+        "label": "Text Colour",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_family",
+        "label": "Font",
+        "default": "helvetica_n4"
+      },
+      {
+        "type": "range",
+        "id": "image_blur",
+        "min": 0,
+        "max": 25,
+        "step": 1,
+        "unit": "px",
+        "label": "Image Blur",
+        "default": 15
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background Image"
+      },
+      {
+        "type": "header",
+        "content": "Content Settings"
+      },
+      {
+        "type": "range",
+        "id": "font_size",
+        "min": 10,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "label": "Font Size (Content)",
+        "default": 24
+      },
+      {
+        "type": "richtext",
+        "id": "sale_banner_content",
+        "label": "Sale Banner Content",
+        "default": "<p>Enter your content here</p>"
+      },
+      {
+        "type": "header",
+        "content": "Button Settings"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default": "Click Here"
+      },
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": "Button Style",
+        "options": [
+          {
+            "value": "btn-primary",
+            "label": "Primary"
+          },
+          {
+            "value": "btn-secondary",
+            "label": "Secondary"
+          }
+        ],
+        "default": "btn-primary"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button URL",
+        "info": "If this URL field is left blank then the button will not appear."
+      },
+      {
+        "type": "header",
+        "content": "Countdown Timer Settings"
+      },
+      {
+        "type": "range",
+        "id": "timer_font_size",
+        "min": 10,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "label": "Font Size (Countdown Timer)",
+        "default": 24
+      },
+      {
+        "type": "text",
+        "id": "countdown_end_time",
+        "label": "Countdown End Time (DD/MM/YYYY HH:mm:ss)",
+        "default": "31/12/2025 23:59:59"
+      },
+      {
+        "type": "text",
+        "id": "ended_message",
+        "label": "Sale Ended Message",
+        "default": "Sale ended"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Sale Banner Countdown",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

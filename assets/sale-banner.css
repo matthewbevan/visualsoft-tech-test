@@ -1,0 +1,74 @@
+.sale-banner-countdown {
+  padding: 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sale-banner-background {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  z-index: 5;
+  transform: translateY(-50%);
+}
+
+.sale-banner-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.sale-banner-content {
+  display: flex;
+  flex-direction: row;
+  gap: 28px;
+}
+
+.sale-banner-content p,
+countdown-timer p {
+  margin-bottom: 0;
+}
+
+.btn {
+  border: 1px solid;
+  padding: 5px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+}
+
+.countdown-text {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.countdown-clock {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.countdown-time {
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+}
+
+.countdown-clock .separator {
+  font-weight: 600;
+}
