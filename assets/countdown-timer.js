@@ -30,10 +30,13 @@ class CountdownTimer extends HTMLElement {
     if (!countdownDisplay || !endedMessageDisplay) return;
 
     if (timeRemaining < 0) {
-      countdownText.style.display = "none";
+      countdownText.classList.remove('active-countdown');
       countdownDisplay.innerHTML = "";
-      endedMessageDisplay.style.display = "block";
+      endedMessageDisplay.classList.add('active-countdown');
       return;
+    } else {
+      countdownText.classList.add('active-countdown');
+      endedMessageDisplay.classList.remove('active-countdown');
     }
 
     const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));

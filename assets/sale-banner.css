@@ -1,5 +1,5 @@
 .sale-banner-countdown {
-  padding: 50px;
+  padding: 50px 80px;
   position: relative;
   overflow: hidden;
 }
@@ -27,12 +27,13 @@
 .sale-banner-content {
   display: flex;
   flex-direction: row;
-  gap: 28px;
+  gap: 38px;
 }
 
 .sale-banner-content p,
 countdown-timer p {
   margin-bottom: 0;
+  margin-top: 0;
 }
 
 .btn {
@@ -45,10 +46,11 @@ countdown-timer p {
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 1.5px;
+  transition: 0.3s ease-in-out;
 }
 
 .countdown-text {
-  display: flex;
+  display: none;
   flex-direction: row;
   gap: 20px;
 }
@@ -71,4 +73,14 @@ countdown-timer p {
 
 .countdown-clock .separator {
   font-weight: 600;
+}
+
+.countdown-ended-message {
+  display: none;
+  align-items: center;
+  gap: 20px;
+}
+
+.active-countdown {
+  display: flex;
 }

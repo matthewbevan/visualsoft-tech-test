@@ -19,7 +19,7 @@
   <div class="sale-banner-content">
     {{ section.settings.sale_banner_content }}
     {% if section.settings.button_url != blank and section.settings.button_text != blank %}
-    <a href="{{ section.settings.button_url }}" class="btn {{ section.settings.button_style }}">
+    <a href="{{ section.settings.button_url }}" class="btn">
       {{ section.settings.button_text }}
     </a>
   {% endif %}
@@ -48,7 +48,7 @@
           <span class="icon">{% render 'icon-calendar' %}</span>
           <span class="countdown-clock"></span>
         </p>
-        <p class="countdown-ended-message" style="display:none;">
+        <p class="countdown-ended-message">
           <span class="icon">{% render 'icon-calendar' %}</span>
           {{ section.settings.ended_message }}
         </p>
@@ -89,7 +89,12 @@
   }
 
   .btn {
-    color: {{ section.settings.text_colour }};
+    background-color: {{ section.settings.btn_bg_colour }};
+    color: {{ section.settings.btn_text_colour }};
+  }
+  .btn:hover {
+    background-color: {{ section.settings.btn_bg_hover_colour }};
+    color: {{ section.settings.btn_text_hover_colour }};
   }
 {% endstyle %}
 
@@ -160,26 +165,33 @@
         "content": "Button Settings"
       },
       {
+        "type": "color",
+        "id": "btn_bg_colour",
+        "label": "Button Background Colour"
+      },
+      {
+        "type": "color",
+        "id": "btn_bg_hover_colour",
+        "label": "Button Background Hover Colour",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "btn_text_colour",
+        "label": "Text Colour",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "btn_text_hover_colour",
+        "label": "Text Hover Colour",
+        "default": "#000000"
+      },
+      {
         "type": "text",
         "id": "button_text",
         "label": "Button Text",
         "default": "Click Here"
-      },
-      {
-        "type": "select",
-        "id": "button_style",
-        "label": "Button Style",
-        "options": [
-          {
-            "value": "btn-primary",
-            "label": "Primary"
-          },
-          {
-            "value": "btn-secondary",
-            "label": "Secondary"
-          }
-        ],
-        "default": "btn-primary"
       },
       {
         "type": "url",
