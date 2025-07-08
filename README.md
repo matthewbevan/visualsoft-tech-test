@@ -23,3 +23,4 @@ Upon review there are improvements that I would make:
 - As there was only a desktop version of the design, I would of liked to be able to do some responsiveness but assumed that only desktop was required in the test. 
 - Utilising the scheme colours in theme settings which would be a more suitable option for elements such as buttons and text.
 - Render the countdown timer as a snippet to improve readability of section code. 
+- Change 'Days', 'Hours', 'Mins' and 'Secs' text from being hardcoded and added to locales for multi language stores.
