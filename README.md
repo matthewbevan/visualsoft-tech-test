@@ -1,5 +1,6 @@
 # Visualsoft Technical Test
 Theme Link: https://matt-bevan-tech-test.myshopify.com/?preview_theme_id=182905504081
+Password to view: visualsofttest
 
 ## Local Development
 To start local development and preview the theme, run:
